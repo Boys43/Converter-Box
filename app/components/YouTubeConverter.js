@@ -10,10 +10,11 @@ export default function YouTubeConverter() {
   const [downloadUrl, setDownloadUrl] = useState('');
   const [downloading, setDownloading] = useState(false);
   const inputRef = useRef(null);
+  const videoInfoRef = useRef(null);
 
   // 🔑 RapidAPI Keys & URLs
-  const RAPIDAPI_KEY = 'f03f2706afmshe9113049e8cf17dp19a386jsnb6f5a5ed0652';
-  const RAPIDAPI_MP3 = 'https://youtube-mp36.p.rapidapi.com/dl';
+  const RAPIDAPI_KEY = process.env.NEXT_PUBLIC_RAPIDAPI_KEY;
+  const RAPIDAPI_MP3 = process.env.NEXT_PUBLIC_RAPIDAPI_MP3;
 
   // ✅ URL & ID validation (memoized for performance)
   const extractVideoId = useCallback((url) => {
@@ -37,6 +38,21 @@ export default function YouTubeConverter() {
       return () => clearTimeout(timer);
     }
   }, [url]);
+
+  // 🎯 Auto-scroll to video info when data loads
+  useEffect(() => {
+    if (videoInfo && !loading && videoInfoRef.current) {
+      const timer = setTimeout(() => {
+        videoInfoRef.current?.scrollIntoView({
+          behavior: 'smooth',
+          block: 'center',
+          inline: 'nearest'
+        });
+      }, 500); // Increased delay to ensure DOM is fully rendered
+      
+      return () => clearTimeout(timer);
+    }
+  }, [videoInfo, loading]);
 
   // 🎥 Fetch video info + MP3 link (memoized for performance)
   const fetchVideoData = useCallback(async () => {
@@ -85,7 +101,7 @@ export default function YouTubeConverter() {
     } finally {
       setLoading(false);
     }
-  }, [url, extractVideoId]);
+  }, [url, extractVideoId, RAPIDAPI_KEY, RAPIDAPI_MP3]);
 
   // 💾 Download handler
   const handleDownload = () => {
@@ -122,11 +138,11 @@ export default function YouTubeConverter() {
   };
 
   return (
-    <div className="max-w-3xl mx-auto p-8">
-      {/* 🔗 URL Input */}
-      <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-xl p-6 mb-8">
-        <label className="block text-lg font-semibold mb-3 text-gray-800 dark:text-gray-200">
-          YouTube URL
+    <div className="max-w-3xl mx-auto relative ">
+      {/* URL Input */}
+      <div className="bg-white/50 border border-gray-300 rounded-xl p-8">
+        <label className="block text-lg font-semibold mb-4 text-black">
+          Enter <span className='text-(--primary-color)'>YouTube</span> URL
         </label>
         <div className="flex gap-3">
           <input
@@ -134,16 +150,16 @@ export default function YouTubeConverter() {
             value={url}
             onChange={(e) => setUrl(e.target.value)}
             placeholder="https://www.youtube.com/watch?v=..."
-            className="flex-1 px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-600 focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:text-white"
+            className="flex-1 px-4 py-3 rounded-lg border-2 border-gray-200 focus:border-[#fba363] focus:outline-none transition-colors duration-200 text-black placeholder-gray-400"
             disabled={loading || downloading}
           />
           <button
             onClick={handleReset}
             disabled={loading || downloading}
-            className="px-6 py-3 bg-gray-600 hover:bg-gray-700 disabled:bg-gray-400 text-white rounded-lg font-semibold"
+            className="px-6 py-3 bg-gray-100 hover:bg-gray-200 disabled:bg-gray-50 disabled:text-gray-400 text-gray-700 rounded-lg font-medium transition-colors duration-200"
           >
             {(loading || downloading) ? (
-              <div className="animate-spin w-5 h-5 border-2 border-white border-t-transparent rounded-full"></div>
+              <div className="animate-spin w-5 h-5 border-2 border-gray-400 border-t-transparent rounded-full"></div>
             ) : (
               'Clear'
             )}
@@ -151,28 +167,28 @@ export default function YouTubeConverter() {
         </div>
 
         {error && (
-          <p className="mt-3 text-red-600 dark:text-red-400 font-medium">{error}</p>
+          <p className="mt-4 text-red-600 font-medium">{error}</p>
         )}
       </div>
 
-      {/* 🔄 Loading */}
+      {/* Loading */}
       {loading && (
-        <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-xl p-8 text-center">
-          <div className="animate-spin mx-auto w-12 h-12 border-4 border-blue-500 border-t-transparent rounded-full mb-4"></div>
-          <h2 className="text-xl font-semibold text-gray-700 dark:text-gray-200">
+        <div className="mt-5 bg-white border border-gray-200 rounded-xl p-8 text-center">
+          <div className="animate-spin mx-auto w-8 h-8 border-3 border-[#fba363] border-t-transparent rounded-full mb-4"></div>
+          <h2 className="text-lg font-semibold text-black mb-2">
             Processing video...
           </h2>
-          <p className="text-gray-500 dark:text-gray-400">
+          <p className="text-gray-600">
             Please wait while we fetch and convert your video.
           </p>
         </div>
       )}
 
-      {/* 🎧 Video Info */}
+      {/* Video Info */}
       {videoInfo && !loading && (
-        <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-xl p-8 space-y-6">
-          <div className="flex flex-col md:flex-row gap-6">
-            <div className="w-full md:w-1/3 h-48 relative rounded-lg overflow-hidden">
+        <div ref={videoInfoRef} className="bg-white border border-gray-200 rounded-xl p-8 mt-5 ">
+          <div className="flex flex-col md:flex-row gap-6 mb-6">
+            <div className="w-full md:w-1/3 h-48 relative rounded-lg overflow-hidden bg-gray-100">
               <Image
                 src={videoInfo.thumbnail}
                 alt={`${videoInfo.title} - YouTube Video Thumbnail`}
@@ -184,37 +200,35 @@ export default function YouTubeConverter() {
                 blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAAIAAoDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAv/xAAhEAACAQMDBQAAAAAAAAAAAAABAgMABAUGIWGRkqGx0f/EABUBAQEAAAAAAAAAAAAAAAAAAAMF/8QAGhEAAgIDAAAAAAAAAAAAAAAAAAECEgMRkf/aAAwDAQACEQMRAD8AltJagyeH0AthI5xdrLcNM91BF5pX2HaH9bcfaSXWGaRmknyJckliyjqTzSlT54b6bk+h0R//2Q=="
               />
             </div>
-            <div className="flex-1 space-y-3">
-              <h2 className="text-2xl font-bold text-gray-800 dark:text-white">
+            <div className="flex-1 space-y-4">
+              <h2 className="text-xl font-bold text-black leading-tight">
                 {videoInfo.title}
               </h2>
-              <p className="text-gray-600 dark:text-gray-400">
+              <p className="text-gray-600">
                 by {videoInfo.author}
               </p>
-              <div className="grid grid-cols-2 gap-2 text-sm">
-                <p>
-                  <strong>Duration:</strong> {formatDuration(videoInfo.duration)}
-                </p>
-                <p>
-                  <strong>File Size:</strong>{' '}
-                  {videoInfo.filesize
-                    ? (videoInfo.filesize / 1024 / 1024).toFixed(2) + ' MB'
-                    : 'N/A'}
-                </p>
+              <div className="grid grid-cols-2 gap-4 text-sm">
+                <div className="bg-gray-50 p-3 rounded-lg">
+                  <span className="text-gray-500 block">Duration</span>
+                  <span className="font-semibold text-black">{formatDuration(videoInfo.duration)}</span>
+                </div>
+                <div className="bg-gray-50 p-3 rounded-lg">
+                  <span className="text-gray-500 block">File Size</span>
+                  <span className="font-semibold text-black">
+                    {videoInfo.filesize
+                      ? (videoInfo.filesize / 1024 / 1024).toFixed(2) + ' MB'
+                      : 'N/A'}
+                  </span>
+                </div>
               </div>
-              {videoInfo.description && (
-                <p className="text-sm text-gray-600 dark:text-gray-400 line-clamp-3">
-                  {videoInfo.description}
-                </p>
-              )}
             </div>
           </div>
 
-          <div className="flex justify-center gap-4 mt-4">
+          <div className="flex flex-col sm:flex-row gap-3 justify-center">
             <button
               onClick={handleDownload}
               disabled={downloading}
-              className="px-8 py-3 bg-blue-600 hover:bg-blue-700 disabled:bg-gray-400 text-white rounded-lg font-semibold flex items-center gap-2"
+              className="px-8 py-4 bg-[#fba363] hover:bg-[#f59542] disabled:bg-gray-300 disabled:text-gray-500 text-white rounded-lg font-semibold flex items-center justify-center gap-2 transition-colors duration-200"
             >
               {downloading ? (
                 <>
@@ -222,51 +236,25 @@ export default function YouTubeConverter() {
                   Downloading...
                 </>
               ) : (
-                'Download MP3'
+                <>
+                  <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/>
+                  </svg>
+                  Download MP3
+                </>
               )}
             </button>
             <button
               onClick={handleReset}
               disabled={downloading}
-              className="px-8 py-3 bg-gray-600 hover:bg-gray-700 disabled:bg-gray-400 text-white rounded-lg font-semibold"
+              className="px-6 py-4 bg-gray-100 hover:bg-gray-200 disabled:bg-gray-50 disabled:text-gray-400 text-gray-700 rounded-lg font-medium transition-colors duration-200"
             >
-              Reset
+              Convert Another
             </button>
           </div>
         </div>
       )}
 
-      {/* 🌟 Footer Features */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-12 text-center">
-        {[
-          {
-            title: 'Fast Conversion',
-            text: 'Convert videos to MP3 in seconds using optimized RapidAPI endpoints.',
-            icon: '⚡',
-          },
-          {
-            title: 'High Quality',
-            text: 'Get clean, high-quality 128kbps MP3 files instantly.',
-            icon: '🎵',
-          },
-          {
-            title: 'Secure & Private',
-            text: 'All conversions are handled securely — no data stored.',
-            icon: '🔒',
-          },
-        ].map((f, i) => (
-          <div
-            key={i}
-            className="bg-white dark:bg-gray-800 rounded-xl shadow p-6 hover:shadow-lg transition"
-          >
-            <div className="text-4xl mb-3">{f.icon}</div>
-            <h3 className="text-lg font-semibold text-gray-800 dark:text-white mb-2">
-              {f.title}
-            </h3>
-            <p className="text-gray-600 dark:text-gray-400 text-sm">{f.text}</p>
-          </div>
-        ))}
-      </div>
     </div>
   );
 }

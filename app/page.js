@@ -1,165 +1,214 @@
 'use client';
 
+import { Check } from 'lucide-react';
 import YouTubeConverter from './components/YouTubeConverter';
 
 export default function Home() {
   return (
-    <div className="min-h-screen bg-linear-to-br from-blue-50 to-indigo-100 dark:from-gray-900 dark:to-gray-800">
-      <div className="container mx-auto px-4 py-8">
-        {/* SEO-optimized header */}
-        <header className="text-center mb-12">
-          <h1 className="text-4xl md:text-6xl font-bold text-gray-800 dark:text-white mb-4">
-            ConverterBox - Free YouTube to MP3 Converter
-          </h1>
-          <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto mb-6">
-            Convert YouTube videos to high-quality MP3 files instantly with ConverterBox. 
-            Our free YouTube to MP3 converter is fast, secure, and requires no registration. 
-            Download MP3 from YouTube in seconds with superior audio quality.
-          </p>
-          
-          {/* Key features for SEO */}
-          <div className="flex flex-wrap justify-center gap-4 text-sm text-gray-600 dark:text-gray-400 mb-8">
-            <span className="bg-white dark:bg-gray-800 px-3 py-1 rounded-full shadow">✓ Free Forever</span>
-            <span className="bg-white dark:bg-gray-800 px-3 py-1 rounded-full shadow">✓ High Quality MP3</span>
-            <span className="bg-white dark:bg-gray-800 px-3 py-1 rounded-full shadow">✓ No Registration</span>
-            <span className="bg-white dark:bg-gray-800 px-3 py-1 rounded-full shadow">✓ Fast Conversion</span>
-            <span className="bg-white dark:bg-gray-800 px-3 py-1 rounded-full shadow">✓ Secure & Private</span>
-          </div>
-        </header>
-        
-        <YouTubeConverter />
-        
-        {/* SEO Content Section */}
-        <section className="mt-16 max-w-4xl mx-auto">
-          <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-xl p-8">
-            <h2 className="text-3xl font-bold text-gray-800 dark:text-white mb-6 text-center">
-              Why Choose ConverterBox YouTube to MP3 Converter?
-            </h2>
-            
-            <div className="grid md:grid-cols-2 gap-8 mb-8">
-              <div>
-                <h3 className="text-xl font-semibold text-gray-800 dark:text-white mb-3">
-                  🚀 Lightning Fast Conversion
-                </h3>
-                <p className="text-gray-600 dark:text-gray-400">
-                  Our advanced YouTube to MP3 converter processes videos in seconds. 
-                  No waiting, no delays - just instant high-quality MP3 downloads.
-                </p>
-              </div>
-              
-              <div>
-                <h3 className="text-xl font-semibold text-gray-800 dark:text-white mb-3">
-                  🎵 Superior Audio Quality
-                </h3>
-                <p className="text-gray-600 dark:text-gray-400">
-                  Get crystal-clear 128kbps MP3 files that preserve the original audio quality. 
-                  Perfect for music, podcasts, and educational content.
-                </p>
-              </div>
-              
-              <div>
-                <h3 className="text-xl font-semibold text-gray-800 dark:text-white mb-3">
-                  🔒 100% Safe & Secure
-                </h3>
-                <p className="text-gray-600 dark:text-gray-400">
-                  Your privacy matters. We don't store your files or personal data. 
-                  All conversions happen securely without compromising your information.
-                </p>
-              </div>
-              
-              <div>
-                <h3 className="text-xl font-semibold text-gray-800 dark:text-white mb-3">
-                  💻 Works on All Devices
-                </h3>
-                <p className="text-gray-600 dark:text-gray-400">
-                  Access our YouTube MP3 converter from any device - desktop, mobile, or tablet. 
-                  No software installation required.
-                </p>
-              </div>
+    <div className="min-h-screen bg-white">
+      <div className="max-w-6xl mx-auto px-6 py-16 pt-28">
+        <div className='relative z-99 w-full'>
+          <div className="absolute w-60 h-60 bg-(--primary-color) rounded-full blur-[120px] opacity-20 bottom-10 right-20 animate-[pulse_5s_ease-in-out_infinite]"></div>
+          <div className="absolute w-48 h-48 bg-(--primary-color) rounded-ull blur-[90px] opacity-15 top-1/3 right-1/3 animate-[pulse_5s_ease-in-out_infinite]"></div>
+          <div className="absolute w-24 h-24 bg-(--primary-color) rounded-full blur-[60px] opacity-10 top-1/2 left-1/4 animate-[bounce_10s_ease-in-out_infinite]"></div>
+
+          {/* Hero Section */}
+          <header className="text-center">
+            <h1 className="text-5xl md:text-6xl font-bold text-black mb-6 leading-tight">
+              YouTube to <span className='text-(--primary-color) underline underline-offset-8'>MP3 Converter</span>
+            </h1>
+            <p className="text-lg text-gray-600 max-w-2xl mx-auto mb-8 leading-relaxed">
+              Convert YouTube videos to high-quality MP3 files instantly with <br/>  <span className='font-semibold text-(--primary-color)'>Converter Box</span>.
+              Fast, secure, and completely free.
+            </p>
+
+            {/* Key features */}
+            <div className="flex flex-wrap justify-center gap-3 text-sm text-gray-600 mb-12">
+              <span className="flex items-center gap-3 bg-gray-50 px-4 py-2 rounded-full border border-gray-100">Free Forever <Check className='text-(--primary-color)' /></span>
+              <span className="flex items-center gap-3 bg-gray-50 px-4 py-2 rounded-full border border-gray-100">High Quality <Check className='text-(--primary-color)' /></span>
+              <span className="flex items-center gap-3 bg-gray-50 px-4 py-2 rounded-full border border-gray-100">No Registration <Check className='text-(--primary-color)' /></span>
+              <span className="flex items-center gap-3 bg-gray-50 px-4 py-2 rounded-full border border-gray-100">Secure & Private <Check className='text-(--primary-color)' /></span>
             </div>
-            
-            <div className="border-t border-gray-200 dark:border-gray-700 pt-8">
-              <h3 className="text-2xl font-bold text-gray-800 dark:text-white mb-4">
-                How to Convert YouTube to MP3
+          </header>
+          <YouTubeConverter />
+
+        </div>
+
+        {/* Features Section */}
+        <section id="features" className="mt-20">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl font-bold text-black mb-4">
+              Why Choose Our Converter?
+            </h2>
+            <p className="text-gray-600 max-w-2xl mx-auto">
+              Simple, fast, and reliable YouTube to MP3 conversion with no compromises.
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-2 gap-8 mb-12">
+            <div className="text-center p-6">
+              <div className="w-12 h-12 bg-[#fba363] rounded-lg flex items-center justify-center mx-auto mb-4">
+                <svg className="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M13 10V3L4 14h7v7l9-11h-7z" />
+                </svg>
+              </div>
+              <h3 className="text-xl font-semibold text-black mb-3">
+                Lightning Fast
               </h3>
-              <ol className="space-y-3 text-gray-600 dark:text-gray-400">
-                <li className="flex items-start">
-                  <span className="bg-blue-500 text-white rounded-full w-6 h-6 flex items-center justify-center text-sm font-bold mr-3 mt-0.5">1</span>
-                  <span>Copy the YouTube video URL you want to convert to MP3</span>
-                </li>
-                <li className="flex items-start">
-                  <span className="bg-blue-500 text-white rounded-full w-6 h-6 flex items-center justify-center text-sm font-bold mr-3 mt-0.5">2</span>
-                  <span>Paste the URL into our YouTube to MP3 converter above</span>
-                </li>
-                <li className="flex items-start">
-                  <span className="bg-blue-500 text-white rounded-full w-6 h-6 flex items-center justify-center text-sm font-bold mr-3 mt-0.5">3</span>
-                  <span>Wait for the conversion to complete automatically</span>
-                </li>
-                <li className="flex items-start">
-                  <span className="bg-blue-500 text-white rounded-full w-6 h-6 flex items-center justify-center text-sm font-bold mr-3 mt-0.5">4</span>
-                  <span>Click "Download MP3" to save your converted audio file</span>
-                </li>
-              </ol>
+              <p className="text-gray-600 leading-relaxed">
+                Convert videos to MP3 in seconds with our optimized processing engine.
+              </p>
+            </div>
+
+            <div className="text-center p-6">
+              <div className="w-12 h-12 bg-[#fba363] rounded-lg flex items-center justify-center mx-auto mb-4">
+                <svg className="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z" />
+                </svg>
+              </div>
+              <h3 className="text-xl font-semibold text-black mb-3">
+                High Quality Audio
+              </h3>
+              <p className="text-gray-600 leading-relaxed">
+                Get crystal-clear 128kbps MP3 files that preserve original audio quality.
+              </p>
+            </div>
+
+            <div className="text-center p-6">
+              <div className="w-12 h-12 bg-[#fba363] rounded-lg flex items-center justify-center mx-auto mb-4">
+                <svg className="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z" />
+                </svg>
+              </div>
+              <h3 className="text-xl font-semibold text-black mb-3">
+                100% Secure
+              </h3>
+              <p className="text-gray-600 leading-relaxed">
+                No data stored, completely private. Your files are processed securely.
+              </p>
+            </div>
+
+            <div className="text-center p-6">
+              <div className="w-12 h-12 bg-[#fba363] rounded-lg flex items-center justify-center mx-auto mb-4">
+                <svg className="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M17 1H7c-1.1 0-2 .9-2 2v18c0 1.1.9 2 2 2h10c1.1 0 2-.9 2-2V3c0-1.1-.9-2-2-2zm0 18H7V5h10v14z" />
+                </svg>
+              </div>
+              <h3 className="text-xl font-semibold text-black mb-3">
+                All Devices
+              </h3>
+              <p className="text-gray-600 leading-relaxed">
+                Works perfectly on desktop, mobile, and tablet. No installation required.
+              </p>
             </div>
           </div>
         </section>
-        
-        {/* FAQ Section for SEO */}
-        <section className="mt-12 max-w-4xl mx-auto">
-          <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-xl p-8">
-            <h2 className="text-3xl font-bold text-gray-800 dark:text-white mb-6 text-center">
+
+        {/* How to Use Section */}
+        <section id="how-to" className="mt-20">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl font-bold text-black mb-4">
+              How to Convert YouTube to MP3
+            </h2>
+            <p className="text-gray-600 max-w-2xl mx-auto">
+              Simple 4-step process to convert any YouTube video to MP3 format.
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-4 gap-6">
+            <div className="text-center">
+              <div className="w-12 h-12 bg-[#fba363] rounded-full flex items-center justify-center mx-auto mb-4">
+                <span className="text-white font-bold text-lg">1</span>
+              </div>
+              <h3 className="font-semibold text-black mb-2">Copy URL</h3>
+              <p className="text-sm text-gray-600">Copy the YouTube video URL you want to convert</p>
+            </div>
+
+            <div className="text-center">
+              <div className="w-12 h-12 bg-[#fba363] rounded-full flex items-center justify-center mx-auto mb-4">
+                <span className="text-white font-bold text-lg">2</span>
+              </div>
+              <h3 className="font-semibold text-black mb-2">Paste URL</h3>
+              <p className="text-sm text-gray-600">Paste the URL into the converter above</p>
+            </div>
+
+            <div className="text-center">
+              <div className="w-12 h-12 bg-[#fba363] rounded-full flex items-center justify-center mx-auto mb-4">
+                <span className="text-white font-bold text-lg">3</span>
+              </div>
+              <h3 className="font-semibold text-black mb-2">Wait</h3>
+              <p className="text-sm text-gray-600">Wait for automatic conversion to complete</p>
+            </div>
+
+            <div className="text-center">
+              <div className="w-12 h-12 bg-[#fba363] rounded-full flex items-center justify-center mx-auto mb-4">
+                <span className="text-white font-bold text-lg">4</span>
+              </div>
+              <h3 className="font-semibold text-black mb-2">Download</h3>
+              <p className="text-sm text-gray-600">Click download to save your MP3 file</p>
+            </div>
+          </div>
+        </section>
+
+        {/* FAQ Section */}
+        <section className="mt-20">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl font-bold text-black mb-4">
               Frequently Asked Questions
             </h2>
-            
-            <div className="space-y-6">
-              <div>
-                <h3 className="text-lg font-semibold text-gray-800 dark:text-white mb-2">
-                  Is ConverterBox YouTube to MP3 converter free?
-                </h3>
-                <p className="text-gray-600 dark:text-gray-400">
-                  Yes! ConverterBox is completely free to use. Convert unlimited YouTube videos to MP3 
-                  without any charges, subscriptions, or hidden fees.
-                </p>
-              </div>
-              
-              <div>
-                <h3 className="text-lg font-semibold text-gray-800 dark:text-white mb-2">
-                  What audio quality do I get with the MP3 conversion?
-                </h3>
-                <p className="text-gray-600 dark:text-gray-400">
-                  Our YouTube to MP3 converter provides high-quality 128kbps MP3 files that maintain 
-                  excellent audio clarity while keeping file sizes manageable.
-                </p>
-              </div>
-              
-              <div>
-                <h3 className="text-lg font-semibold text-gray-800 dark:text-white mb-2">
-                  Do I need to install software to convert YouTube to MP3?
-                </h3>
-                <p className="text-gray-600 dark:text-gray-400">
-                  No installation required! ConverterBox works entirely in your web browser. 
-                  Simply visit our website and start converting YouTube videos to MP3 instantly.
-                </p>
-              </div>
-              
-              <div>
-                <h3 className="text-lg font-semibold text-gray-800 dark:text-white mb-2">
-                  Is it legal to convert YouTube videos to MP3?
-                </h3>
-                <p className="text-gray-600 dark:text-gray-400">
-                  Converting YouTube videos for personal use is generally acceptable. However, 
-                  please respect copyright laws and only convert content you have permission to use.
-                </p>
-              </div>
+            <p className="text-gray-600 max-w-2xl mx-auto">
+              Everything you need to know about our YouTube to MP3 converter.
+            </p>
+          </div>
+
+          <div className="space-y-6 max-w-3xl mx-auto">
+            <div className="border border-gray-100 rounded-lg p-6">
+              <h3 className="text-lg font-semibold text-black mb-3">
+                Is this YouTube to MP3 converter free?
+              </h3>
+              <p className="text-gray-600 leading-relaxed">
+                Yes! Our converter is completely free to use. Convert unlimited YouTube videos to MP3
+                without any charges, subscriptions, or hidden fees.
+              </p>
+            </div>
+
+            <div className="border border-gray-100 rounded-lg p-6">
+              <h3 className="text-lg font-semibold text-black mb-3">
+                What audio quality do I get?
+              </h3>
+              <p className="text-gray-600 leading-relaxed">
+                Our converter provides high-quality 128kbps MP3 files that maintain
+                excellent audio clarity while keeping file sizes manageable.
+              </p>
+            </div>
+
+            <div className="border border-gray-100 rounded-lg p-6">
+              <h3 className="text-lg font-semibold text-black mb-3">
+                Do I need to install software?
+              </h3>
+              <p className="text-gray-600 leading-relaxed">
+                No installation required! Our converter works entirely in your web browser.
+                Simply visit our website and start converting instantly.
+              </p>
+            </div>
+
+            <div className="border border-gray-100 rounded-lg p-6">
+              <h3 className="text-lg font-semibold text-black mb-3">
+                Is it legal to convert YouTube videos?
+              </h3>
+              <p className="text-gray-600 leading-relaxed">
+                Converting YouTube videos for personal use is generally acceptable. However,
+                please respect copyright laws and only convert content you have permission to use.
+              </p>
             </div>
           </div>
         </section>
-        
-        <footer className="mt-16 text-center text-gray-500 dark:text-gray-400">
-          <p className="text-sm mb-2">
-            © 2024 ConverterBox - Free YouTube to MP3 Converter. All rights reserved.
+
+        <footer className="mt-20 pt-12 border-t border-gray-100 text-center">
+          <p className="text-sm text-gray-600 mb-2">
+            © 2025 ConverterBox - Free YouTube to MP3 Converter
           </p>
-          <p className="text-xs">
+          <p className="text-xs text-gray-500">
             For personal use only. Please respect copyright laws and terms of service.
           </p>
         </footer>
